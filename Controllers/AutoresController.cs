@@ -12,47 +12,47 @@ namespace Actividad4ApiSegura.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class LibrosController : ControllerBase
+    public class AutoresController : ControllerBase
     {
         private readonly BibliotecaDbContext _context;
 
-        public LibrosController(BibliotecaDbContext context)
+        public AutoresController(BibliotecaDbContext context)
         {
             _context = context;
         }
 
-        // GET: api/Libros
+        // GET: api/Autores
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Libro>>> GetLibros()
+        public async Task<ActionResult<IEnumerable<Autor>>> GetAutors()
         {
-            return await _context.Libros.ToListAsync();
+            return await _context.Autors.ToListAsync();
         }
 
-        // GET: api/Libros/5
+        // GET: api/Autores/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Libro>> GetLibro(int id)
+        public async Task<ActionResult<Autor>> GetAutor(int id)
         {
-            var libro = await _context.Libros.FindAsync(id);
+            var autor = await _context.Autors.FindAsync(id);
 
-            if (libro == null)
+            if (autor == null)
             {
                 return NotFound();
             }
 
-            return libro;
+            return autor;
         }
 
-        // PUT: api/Libros/5
+        // PUT: api/Autores/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutLibro(int id, Libro libro)
+        public async Task<IActionResult> PutAutor(int id, Autor autor)
         {
-            if (id != libro.Id)
+            if (id != autor.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(libro).State = EntityState.Modified;
+            _context.Entry(autor).State = EntityState.Modified;
 
             try
             {
@@ -60,7 +60,7 @@ namespace Actividad4ApiSegura.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!LibroExists(id))
+                if (!AutorExists(id))
                 {
                     return NotFound();
                 }
@@ -73,36 +73,36 @@ namespace Actividad4ApiSegura.Controllers
             return NoContent();
         }
 
-        // POST: api/Libros
+        // POST: api/Autores
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Libro>> PostLibro(Libro libro)
+        public async Task<ActionResult<Autor>> PostAutor(Autor autor)
         {
-            _context.Libros.Add(libro);
+            _context.Autors.Add(autor);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetLibro", new { id = libro.Id }, libro);
+            return CreatedAtAction("GetAutor", new { id = autor.Id }, autor);
         }
 
-        // DELETE: api/Libros/5
+        // DELETE: api/Autores/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteLibro(int id)
+        public async Task<IActionResult> DeleteAutor(int id)
         {
-            var libro = await _context.Libros.FindAsync(id);
-            if (libro == null)
+            var autor = await _context.Autors.FindAsync(id);
+            if (autor == null)
             {
                 return NotFound();
             }
 
-            _context.Libros.Remove(libro);
+            _context.Autors.Remove(autor);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool LibroExists(int id)
+        private bool AutorExists(int id)
         {
-            return _context.Libros.Any(e => e.Id == id);
+            return _context.Autors.Any(e => e.Id == id);
         }
     }
 }
